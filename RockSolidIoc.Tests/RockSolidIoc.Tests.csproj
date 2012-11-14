@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70151067-C5E5-4B7B-9D23-019A3E0ED94B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RockSolidIoc.Tests</RootNamespace>
+    <AssemblyName>RockSolidIoc.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\xunit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomSerializationBinder.cs" />
+    <Compile Include="Attributes\IocDependencyAttributeTests.cs" />
+    <Compile Include="Attributes\MapToAttributeTests.cs" />
+    <Compile Include="Attributes\UseIResolverAttributeTests.cs" />
+    <Compile Include="Attributes\UseLifetimeManagerAttributeTests.cs" />
+    <Compile Include="ChainBuilderTests.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHelperTests.cs" />
+    <Compile Include="Configuration\ConfiguratorTests.cs" />
+    <Compile Include="Configuration\EmptyObject.cs" />
+    <Compile Include="Configuration\LifetimeManagerCollectionTests.cs" />
+    <Compile Include="Configuration\LifetimeManagerMappingConfigurationElementTests.cs" />
+    <Compile Include="Configuration\MockFriendlyLifetimeManager.cs" />
+    <Compile Include="Configuration\MockFriendlyResolver.cs" />
+    <Compile Include="Configuration\ResolverCollectionTests.cs" />
+    <Compile Include="Configuration\ResolverConfigurationElementTests.cs" />
+    <Compile Include="Configuration\TypeMappingCollectionTests.cs" />
+    <Compile Include="Configuration\TypeMappingConfigurationElementTests.cs" />
+    <Compile Include="Exceptions\IocExceptionTests.cs" />
+    <Compile Include="IocContainerTests.cs" />
+    <Compile Include="LifetimeManagers\AttributedWithLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\ContainerManagedLifetimeManagerTests.cs" />
+    <Compile Include="LifetimeManagers\ExternallyControlledLifetimeManagerTests.cs" />
+    <Compile Include="LifetimeManagers\ManagerInMapStrategyImplTests.cs" />
+    <Compile Include="LifetimeManagers\TransientLifetimeManagerTests.cs" />
+    <Compile Include="LifetimeManagers\UseDefaultLifetimeManagerStrategyImplTests.cs" />
+    <Compile Include="LifetimeManagers\UseLifetimeManagerAttributeStrategyImplTests.cs" />
+    <Compile Include="ObjectChain.cs" />
+    <Compile Include="ObjectStrategy.cs" />
+    <Compile Include="Registration\ILoneInterface.cs" />
+    <Compile Include="Registration\ILoneInterfaceImpl.cs" />
+    <Compile Include="Registration\ISimpleInterface.cs" />
+    <Compile Include="Registration\MapToAttributeStrategyImplTests.cs" />
+    <Compile Include="Registration\OneImplementationStrategyImplTests.cs" />
+    <Compile Include="Registration\RegistrationInMapStrategyImplTests.cs" />
+    <Compile Include="Registration\RegistrationNotFoundStrategyImplTests.cs" />
+    <Compile Include="Registration\SimpleInterfaceImpl1.cs" />
+    <Compile Include="Registration\SimpleInterfaceImpl2.cs" />
+    <Compile Include="Registration\SimpleObjectStrategyImplTests.cs" />
+    <Compile Include="ResolverImpl.cs" />
+    <Compile Include="Resolving\AttributedWithResolver.cs" />
+    <Compile Include="Resolving\BadConstructorAttributes.cs" />
+    <Compile Include="Resolving\MatchingConstructorCounts.cs" />
+    <Compile Include="Resolving\PropertyAndMethodInitialization.cs" />
+    <Compile Include="Resolving\ResolverImpl1.cs" />
+    <Compile Include="Resolving\ResolverImpl2.cs" />
+    <Compile Include="Resolving\ResolverInMapStrategyImplTests.cs" />
+    <Compile Include="Resolving\ResolverTests.cs" />
+    <Compile Include="Resolving\StandardConstruction.cs" />
+    <Compile Include="Resolving\StandardIdentifierConstruction.cs" />
+    <Compile Include="Resolving\UnresolvableParameter.cs" />
+    <Compile Include="Resolving\UseDefaultResolverStrategyImplTests.cs" />
+    <Compile Include="Resolving\UseResolverAttributeStrategyImplTests.cs" />
+    <Compile Include="StrategyTests.cs" />
+    <Compile Include="TupleMapTests.cs" />
+    <Compile Include="MockContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libraries\Moq.dll" />
+    <Content Include="Libraries\Moq.pdb" />
+    <Content Include="Libraries\xunit.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RockSolidIoc\RockSolidIoc.csproj">
+      <Project>{a1d4fb25-30d8-450b-9ab0-d058d7be6396}</Project>
+      <Name>RockSolidIoc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

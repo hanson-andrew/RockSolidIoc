@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,8 +40,68 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Attributes\IocConstructorAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TypeResolvers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\IocDependencyAttribute.cs" />
+    <Compile Include="Attributes\MapToAttribute.cs" />
+    <Compile Include="Attributes\UseIInstantiatorAttribute.cs" />
+    <Compile Include="Attributes\UseLifetimeManagerAttribute.cs" />
+    <Compile Include="ChainBuilder.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHelper.cs" />
+    <Compile Include="Configuration\Configurator.cs" />
+    <Compile Include="Configuration\LifetimeManagerMappingCollection.cs" />
+    <Compile Include="Configuration\LifetimeManagerMappingConfigurationElement.cs" />
+    <Compile Include="Configuration\ResolverCollection.cs" />
+    <Compile Include="Configuration\ResolverConfigurationElement.cs" />
+    <Compile Include="Configuration\TypeMappingCollection.cs" />
+    <Compile Include="Configuration\TypeMappingConfigurationElement.cs" />
+    <Compile Include="ContainerLookup.cs" />
+    <Compile Include="Exceptions\IocException.cs" />
+    <Compile Include="IChain.cs" />
+    <Compile Include="IIocContainer.cs" />
+    <Compile Include="IocContainer.cs" />
+    <Compile Include="ITupleMap.cs" />
+    <Compile Include="LifetimeManagement\ContainerManagedLifetimeManager.cs" />
+    <Compile Include="LifetimeManagement\ExternallyControlledLifetimeManager.cs" />
+    <Compile Include="LifetimeManagement\FindLifetimeManagerStrategy.cs" />
+    <Compile Include="LifetimeManagement\ILifetimeManager.cs" />
+    <Compile Include="LifetimeManagement\ILifetimeManagerMap.cs" />
+    <Compile Include="LifetimeManagement\LifetimeManagerMap.cs" />
+    <Compile Include="LifetimeManagement\ManagerInMapStrategyImpl.cs" />
+    <Compile Include="LifetimeManagement\TransientLifetimeManager.cs" />
+    <Compile Include="LifetimeManagement\UseDefaultLifetimeManagerStrategyImpl.cs" />
+    <Compile Include="LifetimeManagement\UseLifetimeManagerAttributeStrategyImpl.cs" />
+    <Compile Include="Registration\IRegistrationMap.cs" />
+    <Compile Include="Registration\MapToAttributeStrategyImpl.cs" />
+    <Compile Include="Registration\OneImplementationStrategyImpl.cs" />
+    <Compile Include="Registration\PickRegistrationStrategy.cs" />
+    <Compile Include="Registration\RegistrationInMapStrategyImpl.cs" />
+    <Compile Include="Registration\RegistrationMap.cs" />
+    <Compile Include="Registration\RegistrationNotFoundStrategyImpl.cs" />
+    <Compile Include="Registration\SimpleObjectStrategyImpl.cs" />
+    <Compile Include="Instantiation\FindResolverStrategy.cs" />
+    <Compile Include="Instantiation\IInstantiator.cs" />
+    <Compile Include="Instantiation\IInstantiatorMap.cs" />
+    <Compile Include="Instantiation\DefaultInstantiator.cs" />
+    <Compile Include="Instantiation\InstantiatorInMapStrategyImpl.cs" />
+    <Compile Include="Instantiation\InstantiatorMap.cs" />
+    <Compile Include="Instantiation\UseDefaultInstantiatorStrategyImpl.cs" />
+    <Compile Include="Instantiation\UseInstantiatorAttributeStrategyImpl.cs" />
+    <Compile Include="Strategy.cs" />
+    <Compile Include="TupleMap.cs" />
+    <Compile Include="TypeMappingRegistration.cs" />
+    <Compile Include="TypeMappingResolutions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration\ioc-config.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TypeUtilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
