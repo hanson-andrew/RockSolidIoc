@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ResolverCollectionTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestIsNotReadOnly()
     {
       ResolverCollection collection = new ResolverCollection();
-      Assert.False(collection.IsReadOnly());
+      Assert.IsFalse(collection.IsReadOnly());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAdd()
     {
       ResolverCollection collection = new ResolverCollection();
@@ -26,7 +26,7 @@ namespace RockSolidIoc.Tests
       collection.Add(element);
       ResolverConfigurationElement[] returnedElements = new ResolverConfigurationElement[1];
       collection.CopyTo(returnedElements, 0);
-      Assert.Equal(element, returnedElements[0]);
+      Assert.AreEqual(element, returnedElements[0]);
     }
   }
 

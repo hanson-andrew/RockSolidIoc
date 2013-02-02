@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass()]
   public class UseLifetimeManagerAttributeTests
   {
-    [Fact()]
+    [TestMethod()]
     public void TestTypeOnlyConstructor()
     {
       Type mappedType = typeof(string);
       UseLifetimeManagerAttribute testAttribute = new UseLifetimeManagerAttribute(mappedType);
-      Assert.Equal(mappedType, testAttribute.Type);
-      Assert.Equal(String.Empty, testAttribute.Identifier);
+      Assert.AreEqual(mappedType, testAttribute.Type);
+      Assert.AreEqual(String.Empty, testAttribute.Identifier);
     }
 
-    [Fact()]
+    [TestMethod()]
     public void TestTypeStringConstructor()
     {
       Type mappedType = typeof(string);
       string identifier = "identifier";
       UseLifetimeManagerAttribute testAttribute = new UseLifetimeManagerAttribute(mappedType, identifier);
-      Assert.Equal(mappedType, testAttribute.Type);
-      Assert.Equal(identifier, testAttribute.Identifier);
+      Assert.AreEqual(mappedType, testAttribute.Type);
+      Assert.AreEqual(identifier, testAttribute.Identifier);
     }
   }
 

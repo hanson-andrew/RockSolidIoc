@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class OneImplementationStrategyImplTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestWithAttributedObject()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
       OneImplementationStrategyImpl testStrategy = new OneImplementationStrategyImpl();
       Type requestedType = typeof(ILoneInterface);
-      Assert.Equal(typeof(ILoneInterfaceImpl), testStrategy.PickRegistration(mockMap.Object, requestedType, String.Empty));
+      Assert.AreEqual(typeof(ILoneInterfaceImpl), testStrategy.PickRegistration(requestedType, String.Empty));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesWithNextStep()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
@@ -29,16 +29,16 @@ namespace RockSolidIoc.Tests
       testStrategy.NextStep = mockNextStep.Object;
       Type requestedType = typeof(object);
       String requestedIdentifier = "identifier";
-      testStrategy.PickRegistration(mockMap.Object, requestedType, requestedIdentifier);
-      mockNextStep.Verify(step => step.PickRegistration(mockMap.Object, requestedType, requestedIdentifier));
+      testStrategy.PickRegistration(requestedType, requestedIdentifier);
+      mockNextStep.Verify(step => step.PickRegistration(requestedType, requestedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesNoNextStep()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
       OneImplementationStrategyImpl testStrategy = new OneImplementationStrategyImpl();
-      Assert.Null(testStrategy.PickRegistration(mockMap.Object, typeof(object), "identifier"));
+      Assert.IsNull(testStrategy.PickRegistration(typeof(object), "identifier"));
     }
   }
 

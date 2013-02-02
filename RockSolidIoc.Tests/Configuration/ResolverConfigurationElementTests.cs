@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ResolverConfigurationElementTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestTypeName()
     {
       string s = "typeName";
       ResolverConfigurationElement element = new ResolverConfigurationElement();
       element.TypeName = s;
-      Assert.Equal(s, element.TypeName);
+      Assert.AreEqual(s, element.TypeName);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestResolverTypeName()
     {
       string s = "resolverType";
       ResolverConfigurationElement element = new ResolverConfigurationElement();
       element.ResolverTypeName = s;
-      Assert.Equal(s, element.ResolverTypeName);
+      Assert.AreEqual(s, element.ResolverTypeName);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestName()
     {
       string s = "name";
       ResolverConfigurationElement element = new ResolverConfigurationElement();
       element.Name = s;
-      Assert.Equal(s, element.Name);
+      Assert.AreEqual(s, element.Name);
     }
   }
 

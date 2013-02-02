@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockSolidIoc", "RockSolidIoc\RockSolidIoc.csproj", "{A1D4FB25-30D8-450B-9AB0-D058D7BE6396}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockSolidIoc.Tests", "RockSolidIoc.Tests\RockSolidIoc.Tests.csproj", "{70151067-C5E5-4B7B-9D23-019A3E0ED94B}"

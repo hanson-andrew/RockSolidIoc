@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class UseDefaultResolverStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestFindResolver()
     {
-      Mock<IInstantiatorMap> mockedMap = new Mock<IInstantiatorMap>();
-      UseDefaultInstantiatorStrategyImpl testStrategy = new UseDefaultInstantiatorStrategyImpl();
-      Assert.IsType<DefaultInstantiator>(testStrategy.FindInstantiator(mockedMap.Object, typeof(object), "identifier"));
+      Mock<IResolverMap> mockedMap = new Mock<IResolverMap>();
+      UseDefaultResolverStrategyImpl testStrategy = new UseDefaultResolverStrategyImpl();
+      Assert.IsInstanceOfType(testStrategy.FindResolver(typeof(object), "identifier"), typeof(Resolver));
     }
 
   }

@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class TransientLifetimeManagerTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestAddRetrieve()
     {
       TransientLifetimeManager manager = new TransientLifetimeManager();
       Mock<IDisposable> disposable = new Mock<IDisposable>();
       manager.AddInstance(disposable.Object);
-      Assert.Null(manager.GetInstance());
+      Assert.IsNull(manager.GetInstance());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestRemoveInstance()
     {
       TransientLifetimeManager manager = new TransientLifetimeManager();
@@ -28,10 +28,10 @@ namespace RockSolidIoc.Tests
       manager.AddInstance(disposable.Object);
       manager.RemoveInstance();
       disposable.Verify(p => p.Dispose(), Times.Never());
-      Assert.Null(manager.GetInstance());
+      Assert.IsNull(manager.GetInstance());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDispose()
     {
       TransientLifetimeManager manager = new TransientLifetimeManager();

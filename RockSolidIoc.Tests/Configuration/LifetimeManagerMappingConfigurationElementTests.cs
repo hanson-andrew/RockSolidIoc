@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class LifetimeManagerMappingConfigurationElementTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestTypeName()
     {
       string s = "typeName";
       LifetimeManagerMappingConfigurationElement element = new LifetimeManagerMappingConfigurationElement();
       element.TypeName = s;
-      Assert.Equal(s, element.TypeName);
+      Assert.AreEqual(s, element.TypeName);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestLifetimeManagerTypeName()
     {
       string s = "lifetimeManager";
       LifetimeManagerMappingConfigurationElement element = new LifetimeManagerMappingConfigurationElement();
       element.LifetimeManagerTypeName = s;
-      Assert.Equal(s, element.LifetimeManagerTypeName);
+      Assert.AreEqual(s, element.LifetimeManagerTypeName);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestName()
     {
       string s = "name";
       LifetimeManagerMappingConfigurationElement element = new LifetimeManagerMappingConfigurationElement();
       element.Name = s;
-      Assert.Equal(s, element.Name);
+      Assert.AreEqual(s, element.Name);
     }
   }
 

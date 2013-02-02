@@ -3,44 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class UseResolverAttributeStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestWithAttributedObject()
     {
-      Mock<IInstantiatorMap> mockMap = new Mock<IInstantiatorMap>();
-      UseInstantiatorAttributeStrategyImpl testStrategy = new UseInstantiatorAttributeStrategyImpl();
+      Mock<IResolverMap> mockMap = new Mock<IResolverMap>();
+      UseResolverAttributeStrategyImpl testStrategy = new UseResolverAttributeStrategyImpl();
       Type requestedType = typeof(AttributedWithResolver);
-      Assert.Equal(typeof(ResolverImpl1), testStrategy.FindInstantiator(mockMap.Object, requestedType, String.Empty));
-      Assert.Equal(typeof(ResolverImpl2), testStrategy.FindInstantiator(mockMap.Object, requestedType, "2"));
+      Assert.AreEqual(typeof(ResolverImpl1), testStrategy.FindResolver(requestedType, String.Empty));
+      Assert.AreEqual(typeof(ResolverImpl2), testStrategy.FindResolver(requestedType, "2"));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesWithNextStep()
     {
-      Mock<IInstantiatorMap> mockMap = new Mock<IInstantiatorMap>();
-      UseInstantiatorAttributeStrategyImpl testStrategy = new UseInstantiatorAttributeStrategyImpl();
-      Mock<FindInstantiatorStrategy> mockNextStep = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockMap = new Mock<IResolverMap>();
+      UseResolverAttributeStrategyImpl testStrategy = new UseResolverAttributeStrategyImpl();
+      Mock<FindResolverStrategy> mockNextStep = new Mock<FindResolverStrategy>();
       testStrategy.NextStep = mockNextStep.Object;
       Type requestedType = typeof(object);
       String requestedIdentifier = "identifier";
-      testStrategy.FindInstantiator(mockMap.Object, requestedType, requestedIdentifier);
-      mockNextStep.Verify(step => step.FindInstantiator(mockMap.Object, requestedType, requestedIdentifier));
+      testStrategy.FindResolver(requestedType, requestedIdentifier);
+      mockNextStep.Verify(step => step.FindResolver(requestedType, requestedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesNoNextStep()
     {
-      Mock<IInstantiatorMap> mockMap = new Mock<IInstantiatorMap>();
-      UseInstantiatorAttributeStrategyImpl testStrategy = new UseInstantiatorAttributeStrategyImpl();
-      Assert.Null(testStrategy.FindInstantiator(mockMap.Object, typeof(object), "identifier"));
+      Mock<IResolverMap> mockMap = new Mock<IResolverMap>();
+      UseResolverAttributeStrategyImpl testStrategy = new UseResolverAttributeStrategyImpl();
+      Assert.IsNull(testStrategy.FindResolver(typeof(object), "identifier"));
     }
 
   }

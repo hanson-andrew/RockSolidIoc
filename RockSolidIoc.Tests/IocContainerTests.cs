@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class IocContainerTests
   {
     #region AddResolver Tests
-    [Fact()]
+    [TestMethod]
     public void TestAddDefaultResolverInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -29,19 +29,19 @@ namespace RockSolidIoc.Tests
                                                     mockManagerMap.Object,
                                                     mockManagerChain.Object);
 
-      Mock<IInstantiator> mockResolver = new Mock<IInstantiator>();
+      Mock<IResolver> mockResolver = new Mock<IResolver>();
       Type typeToResolve = typeof(object);
-      testContainer.AddInstantiator(mockResolver.Object, typeToResolve);
+      testContainer.AddResolver(mockResolver.Object, typeToResolve);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, String.Empty, mockResolver.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddNamedResolverInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -52,20 +52,20 @@ namespace RockSolidIoc.Tests
                                                     mockManagerMap.Object,
                                                     mockManagerChain.Object);
 
-      Mock<IInstantiator> mockResolver = new Mock<IInstantiator>();
+      Mock<IResolver> mockResolver = new Mock<IResolver>();
       Type typeToResolve = typeof(object);
       string identifier = "identifier";
-      testContainer.AddInstantiator(mockResolver.Object, typeToResolve, identifier);
+      testContainer.AddResolver(mockResolver.Object, typeToResolve, identifier);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, identifier, mockResolver.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddDefaultResolverType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -78,17 +78,17 @@ namespace RockSolidIoc.Tests
 
       Type resolverType = typeof(ResolverImpl);
       Type typeToResolve = typeof(object);
-      testContainer.AddInstantiator(resolverType, typeToResolve);
+      testContainer.AddResolver(resolverType, typeToResolve);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, String.Empty, resolverType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddNamedResolverType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -102,17 +102,17 @@ namespace RockSolidIoc.Tests
       Type resolverType = typeof(ResolverImpl);
       Type typeToResolve = typeof(object);
       string identifier = "identifier";
-      testContainer.AddInstantiator(resolverType, typeToResolve, identifier);
+      testContainer.AddResolver(resolverType, typeToResolve, identifier);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, identifier, resolverType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddDefaultResolverInstanceGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -123,19 +123,19 @@ namespace RockSolidIoc.Tests
                                                     mockManagerMap.Object,
                                                     mockManagerChain.Object);
 
-      Mock<IInstantiator> resolver = new Mock<IInstantiator>();
+      Mock<IResolver> resolver = new Mock<IResolver>();
       Type typeToResolve = typeof(object);
-      testContainer.AddInstantiator<object>(resolver.Object);
+      testContainer.AddResolver<object>(resolver.Object);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, String.Empty, resolver.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddNamedResolverInstanceGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -146,20 +146,20 @@ namespace RockSolidIoc.Tests
                                                     mockManagerMap.Object,
                                                     mockManagerChain.Object);
 
-      Mock<IInstantiator> resolver = new Mock<IInstantiator>();
+      Mock<IResolver> resolver = new Mock<IResolver>();
       Type typeToResolve = typeof(object);
       string identifier = "identifier";
-      testContainer.AddInstantiator<object>(resolver.Object, identifier);
+      testContainer.AddResolver<object>(resolver.Object, identifier);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, identifier, resolver.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddDefaultResolverTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -172,17 +172,17 @@ namespace RockSolidIoc.Tests
 
       Type resolverType = typeof(ResolverImpl);
       Type typeToResolve = typeof(object);
-      testContainer.AddInstantiator<ResolverImpl, object>();
+      testContainer.AddResolver<ResolverImpl, object>();
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, String.Empty, resolverType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAddNamedResolverTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -196,18 +196,18 @@ namespace RockSolidIoc.Tests
       Type resolverType = typeof(ResolverImpl);
       Type typeToResolve = typeof(object);
       string identifier = "identifier";
-      testContainer.AddInstantiator<ResolverImpl, object>(identifier);
+      testContainer.AddResolver<ResolverImpl, object>(identifier);
       mockResolverMap.Verify(map => map.AddOrUpdate(typeToResolve, identifier, resolverType));
     }
     #endregion
 
-    [Fact()]
+    [TestMethod]
     public void TestCreateChildContainerReturns()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -217,17 +217,17 @@ namespace RockSolidIoc.Tests
                                                     mockResolverChain.Object,
                                                     mockManagerMap.Object,
                                                     mockManagerChain.Object);
-      Assert.IsAssignableFrom<IIocContainer>(testContainer.CreateChildContainer());
+      Assert.IsInstanceOfType(testContainer.CreateChildContainer(), typeof(IIocContainer));
     }
 
     #region LinkToLifetime Tests
-    [Fact()]
+    [TestMethod]
     public void TestDefaultLinkToManagerType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -244,13 +244,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, String.Empty, managerType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedLinkToManagerType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -268,13 +268,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, identifier, managerType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultLinkToManagerInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -291,13 +291,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, String.Empty, managerMock.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedLinkToManagerInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -315,13 +315,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, identifier, managerMock.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultGenericLinkToManagerInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -338,13 +338,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, String.Empty, managerMock.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedGenericLinkToManagerInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -362,13 +362,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, identifer, managerMock.Object));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultGenericLinkToManagerTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -385,13 +385,13 @@ namespace RockSolidIoc.Tests
       mockManagerMap.Verify(map => map.AddOrUpdate(managedType, String.Empty, managerType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedGenericLinkToManagerTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -411,13 +411,13 @@ namespace RockSolidIoc.Tests
     #endregion
 
     #region Register Tests
-    [Fact()]
+    [TestMethod]
     public void TestDefaultRegisterToType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -434,13 +434,13 @@ namespace RockSolidIoc.Tests
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, String.Empty, mappedType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedRegisterToType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -458,13 +458,13 @@ namespace RockSolidIoc.Tests
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, identifier, mappedType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultGenericLinkToType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -481,13 +481,13 @@ namespace RockSolidIoc.Tests
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, String.Empty, mappedType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedGenericLinkToType()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -505,13 +505,13 @@ namespace RockSolidIoc.Tests
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, identifier, mappedType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultGenericLinkToInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -524,19 +524,19 @@ namespace RockSolidIoc.Tests
 
       Type originalType = typeof(ISimpleInterface);
       Mock<ISimpleInterface> mockedSimpleInterface = new Mock<ISimpleInterface>();
-      mockRegistrationChain.Setup(chain => chain.PickRegistration(mockRegistrationMap.Object, originalType, String.Empty)).Returns(mockedSimpleInterface.Object.GetType());
+      mockRegistrationChain.Setup(chain => chain.PickRegistration(originalType, String.Empty)).Returns(mockedSimpleInterface.Object.GetType());
       testContainer.RegisterType<ISimpleInterface>(mockedSimpleInterface.Object);
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, String.Empty, mockedSimpleInterface.Object.GetType()));
-      Assert.Equal(mockedSimpleInterface.Object, testContainer.Resolve<ISimpleInterface>());
+      Assert.AreEqual(mockedSimpleInterface.Object, testContainer.Resolve<ISimpleInterface>());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedGenericLinkToInstance()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -550,19 +550,19 @@ namespace RockSolidIoc.Tests
       Type originalType = typeof(ISimpleInterface);
       Mock<ISimpleInterface> mockedSimpleInterface = new Mock<ISimpleInterface>();
       string identifer = "identifier";
-      mockRegistrationChain.Setup(chain => chain.PickRegistration(mockRegistrationMap.Object, originalType, identifer)).Returns(mockedSimpleInterface.Object.GetType());
+      mockRegistrationChain.Setup(chain => chain.PickRegistration(originalType, identifer)).Returns(mockedSimpleInterface.Object.GetType());
       testContainer.RegisterType<ISimpleInterface>(mockedSimpleInterface.Object, identifer);
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, identifer, mockedSimpleInterface.Object.GetType()));
-      Assert.Equal(mockedSimpleInterface.Object, testContainer.Resolve<ISimpleInterface>(identifer));
+      Assert.AreEqual(mockedSimpleInterface.Object, testContainer.Resolve<ISimpleInterface>(identifer));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDefaultGenericLinkToTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 
@@ -579,13 +579,13 @@ namespace RockSolidIoc.Tests
       mockRegistrationMap.Verify(map => map.AddOrUpdate(originalType, String.Empty, mappedType));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNamedGenericLinkToTypeGenerically()
     {
       Mock<IRegistrationMap> mockRegistrationMap = new Mock<IRegistrationMap>();
       Mock<PickRegistrationStrategy> mockRegistrationChain = new Mock<PickRegistrationStrategy>();
-      Mock<IInstantiatorMap> mockResolverMap = new Mock<IInstantiatorMap>();
-      Mock<FindInstantiatorStrategy> mockResolverChain = new Mock<FindInstantiatorStrategy>();
+      Mock<IResolverMap> mockResolverMap = new Mock<IResolverMap>();
+      Mock<FindResolverStrategy> mockResolverChain = new Mock<FindResolverStrategy>();
       Mock<ILifetimeManagerMap> mockManagerMap = new Mock<ILifetimeManagerMap>();
       Mock<FindLifetimeManagerStrategy> mockManagerChain = new Mock<FindLifetimeManagerStrategy>();
 

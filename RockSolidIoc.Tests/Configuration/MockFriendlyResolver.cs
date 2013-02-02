@@ -8,7 +8,7 @@ using Moq;
 namespace RockSolidIoc.Tests
 {
 
-  class MockFriendlyResolver : MockContainer<IInstantiator>, IInstantiator
+    class MockFriendlyResolver : MockContainer<IResolver>, IResolver
   {
     public object ResolveDependency(Type type, IIocContainer context)
     {

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace RockSolidIoc
 {
-  public class RegistrationMap : TupleMap<Type, string, Type>, IRegistrationMap { }
+
+	public class RegistrationMap : TupleMap<Type, string, Type>, IRegistrationMap
+	{
+
+
+	}
+
 }

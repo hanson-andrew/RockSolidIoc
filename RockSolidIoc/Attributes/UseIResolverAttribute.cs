@@ -4,19 +4,19 @@ namespace RockSolidIoc
 {
 
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-	public class UseLifetimeManagerAttribute : Attribute
+	public class UseIResolverAttribute : Attribute
 	{
 
 		private Type _type;
 
 		private string _identifier;
-		public UseLifetimeManagerAttribute(Type type)
+		public UseIResolverAttribute(Type type)
 		{
 			this._type = type;
 			this._identifier = string.Empty;
 		}
 
-		public UseLifetimeManagerAttribute(Type type, string identifier)
+		public UseIResolverAttribute(Type type, string identifier)
 		{
 			this._type = type;
 			this._identifier = identifier;

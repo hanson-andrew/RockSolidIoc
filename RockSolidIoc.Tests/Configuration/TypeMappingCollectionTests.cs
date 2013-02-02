@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class TypeMappingCollectionTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestIsNotReadOnly()
     {
       TypeMappingCollection collection = new TypeMappingCollection();
-      Assert.False(collection.IsReadOnly());
+      Assert.IsFalse(collection.IsReadOnly());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestAdd()
     {
       TypeMappingCollection collection = new TypeMappingCollection();
@@ -26,7 +26,7 @@ namespace RockSolidIoc.Tests
       collection.Add(element);
       TypeMappingConfigurationElement[] returnedElements = new TypeMappingConfigurationElement[1];
       collection.CopyTo(returnedElements, 0);
-      Assert.Equal(element, returnedElements[0]);
+      Assert.AreEqual(element, returnedElements[0]);
     }
   }
 

@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ChainBuilderTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestSingleLink()
     {
       ObjectChain initialStep = new ObjectChain();
       ChainBuilder<ObjectChain> testBuilder = ChainBuilder<ObjectChain>.Build(initialStep);
       ObjectChain resultingChain = testBuilder;
-      Assert.Equal(initialStep, resultingChain);
+      Assert.AreEqual(initialStep, resultingChain);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestMultipleSteps()
     {
       ObjectChain initialStep = new ObjectChain();
@@ -28,9 +28,9 @@ namespace RockSolidIoc.Tests
       ObjectChain thirdStep = new ObjectChain();
       ChainBuilder<ObjectChain> testBuilder = ChainBuilder<ObjectChain>.Build(initialStep).WithNextStep(secondStep).WithNextStep(thirdStep);
       ObjectChain resultingChain = testBuilder;
-      Assert.Equal(initialStep, resultingChain);
-      Assert.Equal(secondStep, initialStep.NextStep);
-      Assert.Equal(thirdStep, secondStep.NextStep);
+      Assert.AreEqual(initialStep, resultingChain);
+      Assert.AreEqual(secondStep, initialStep.NextStep);
+      Assert.AreEqual(thirdStep, secondStep.NextStep);
     }
   }
 

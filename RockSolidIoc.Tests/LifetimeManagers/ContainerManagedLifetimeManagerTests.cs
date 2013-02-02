@@ -3,39 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ContainerManagedLifetimeManagerTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestAddRetrieve()
     {
       ContainerManagedLifetimeManager manager = new ContainerManagedLifetimeManager();
       object o = new object();
       manager.AddInstance(o);
-      Assert.Equal(o, manager.GetInstance());
+      Assert.AreEqual(o, manager.GetInstance());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestRemoveInstance()
     {
       ContainerManagedLifetimeManager manager = new ContainerManagedLifetimeManager();
       object o = new object();
       manager.AddInstance(o);
       manager.RemoveInstance();
-      Assert.Null(manager.GetInstance());
+      Assert.IsNull(manager.GetInstance());
       Mock<IDisposable> disposable = new Mock<IDisposable>();
       manager.AddInstance(disposable.Object);
       manager.RemoveInstance();
       disposable.Verify(p => p.Dispose(), Times.Exactly(1));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDispose()
     {
       ContainerManagedLifetimeManager manager = new ContainerManagedLifetimeManager();
@@ -45,16 +44,39 @@ namespace RockSolidIoc.Tests
       disposable.Verify(p => p.Dispose(), Times.Exactly(1));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestObjectDisposed()
     {
       ContainerManagedLifetimeManager manager = new ContainerManagedLifetimeManager();
       manager.Dispose();
-      Assert.Throws<ObjectDisposedException>(delegate { manager.AddInstance(new object()); });
-      Assert.Throws<ObjectDisposedException>(delegate { manager.AddInstance(new object()); });
-      Assert.Throws<ObjectDisposedException>(delegate { manager.GetInstance(); });
-      Assert.Throws<ObjectDisposedException>(delegate { manager.RemoveInstance(); });
-      Assert.Throws<ObjectDisposedException>(delegate { manager.Dispose(); });
+      try
+      {
+        manager.AddInstance(new object());
+        Assert.Fail();
+      }
+      catch (ObjectDisposedException)
+      { }
+      try
+      {
+        manager.GetInstance();
+        Assert.Fail();
+      }
+      catch (ObjectDisposedException)
+      { }
+      try
+      {
+        manager.RemoveInstance();
+        Assert.Fail();
+      }
+      catch (ObjectDisposedException)
+      { }
+      try
+      {
+        manager.Dispose();
+        Assert.Fail();
+      }
+      catch (ObjectDisposedException)
+      { }
     }
   }
 

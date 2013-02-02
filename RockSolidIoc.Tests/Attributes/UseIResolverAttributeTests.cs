@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass()]
   public class UseIResolverAttributeTests
   {
-    [Fact()]
+    [TestMethod()]
     public void TestTypeOnlyConstructor()
     {
       Type mappedType = typeof(string);
-      UseIInstantiatorAttribute testAttribute = new UseIInstantiatorAttribute(mappedType);
-      Assert.Equal(mappedType, testAttribute.Type);
-      Assert.Equal(String.Empty, testAttribute.Identifier);
+      UseIResolverAttribute testAttribute = new UseIResolverAttribute(mappedType);
+      Assert.AreEqual(mappedType, testAttribute.Type);
+      Assert.AreEqual(String.Empty, testAttribute.Identifier);
     }
 
-    [Fact()]
+    [TestMethod()]
     public void TestTypeStringConstructor()
     {
       Type mappedType = typeof(string);
       string identifier = "identifier";
-      UseIInstantiatorAttribute testAttribute = new UseIInstantiatorAttribute(mappedType, identifier);
-      Assert.Equal(mappedType, testAttribute.Type);
-      Assert.Equal(identifier, testAttribute.Identifier);
+      UseIResolverAttribute testAttribute = new UseIResolverAttribute(mappedType, identifier);
+      Assert.AreEqual(mappedType, testAttribute.Type);
+      Assert.AreEqual(identifier, testAttribute.Identifier);
     }
   }
 

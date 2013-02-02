@@ -3,50 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ResolverInMapStrategyImplTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestResolverInMap()
     {
       Type mappedType = typeof(object);
       string mappedIdentifier = "identifier";
       object mappedObject = new object();
-      Mock<IInstantiatorMap> mockedMap = new Mock<IInstantiatorMap>();
+      Mock<IResolverMap> mockedMap = new Mock<IResolverMap>();
       mockedMap.Setup(map => map.IsInMap(mappedType, mappedIdentifier)).Returns(true);
       mockedMap.Setup(map => map.GetMappedObject(mappedType, mappedIdentifier)).Returns(mappedObject);
 
-      InstantiatorInMapStrategyImpl testStrategy = new InstantiatorInMapStrategyImpl();
-      Assert.Equal(mappedObject, testStrategy.FindInstantiator(mockedMap.Object, mappedType, mappedIdentifier));
+      ResolverInMapStrategyImpl testStrategy = new ResolverInMapStrategyImpl(() => mockedMap.Object);
+      Assert.AreEqual(mappedObject, testStrategy.FindResolver(mappedType, mappedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotInMapWithNextStep()
     {
-      Mock<IInstantiatorMap> mockedMap = new Mock<IInstantiatorMap>();
+      Mock<IResolverMap> mockedMap = new Mock<IResolverMap>();
       mockedMap.Setup(map => map.IsInMap(It.IsAny<Type>(), It.IsAny<string>())).Returns(false);
-      Mock<FindInstantiatorStrategy> mockedNextStep = new Mock<FindInstantiatorStrategy>();
+      Mock<FindResolverStrategy> mockedNextStep = new Mock<FindResolverStrategy>();
 
-      InstantiatorInMapStrategyImpl testStrategy = new InstantiatorInMapStrategyImpl();
+      ResolverInMapStrategyImpl testStrategy = new ResolverInMapStrategyImpl(() => mockedMap.Object);
       testStrategy.NextStep = mockedNextStep.Object;
       Type requestedType = typeof(object);
       string requestedIdentifer = "identifier";
-      testStrategy.FindInstantiator(mockedMap.Object, requestedType, requestedIdentifer);
-      mockedNextStep.Verify(step => step.FindInstantiator(mockedMap.Object, requestedType, requestedIdentifer));
+      testStrategy.FindResolver(requestedType, requestedIdentifer);
+      mockedNextStep.Verify(step => step.FindResolver(requestedType, requestedIdentifer));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotInMapWithNoNextStep()
     {
-      Mock<IInstantiatorMap> mockedMap = new Mock<IInstantiatorMap>();
+      Mock<IResolverMap> mockedMap = new Mock<IResolverMap>();
       mockedMap.Setup(map => map.IsInMap(It.IsAny<Type>(), It.IsAny<string>())).Returns(false);
-      InstantiatorInMapStrategyImpl testStrategy = new InstantiatorInMapStrategyImpl();
-      Assert.Null(testStrategy.FindInstantiator(mockedMap.Object, typeof(object), "identifier"));
+      ResolverInMapStrategyImpl testStrategy = new ResolverInMapStrategyImpl(() => mockedMap.Object);
+      Assert.IsNull(testStrategy.FindResolver(typeof(object), "identifier"));
     }
   }
 

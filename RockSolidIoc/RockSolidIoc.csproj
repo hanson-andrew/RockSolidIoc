@@ -41,15 +41,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IocConstructorAttribute.cs" />
+    <Compile Include="Attributes\UseIResolverAttribute.cs" />
+    <Compile Include="Documentation\NamespaceDoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resolving\FindResolverStrategy.cs" />
+    <Compile Include="Resolving\IResolver.cs" />
+    <Compile Include="Resolving\IResolverMap.cs" />
+    <Compile Include="Resolving\Resolver.cs" />
+    <Compile Include="Resolving\ResolverInMapStrategyImpl.cs" />
+    <Compile Include="Resolving\ResolverMap.cs" />
+    <Compile Include="Resolving\UseDefaultResolverStrategyImpl.cs" />
+    <Compile Include="Resolving\UseResolverAttributeStrategyImpl.cs" />
     <Compile Include="TypeResolvers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IocDependencyAttribute.cs" />
     <Compile Include="Attributes\MapToAttribute.cs" />
-    <Compile Include="Attributes\UseIInstantiatorAttribute.cs" />
     <Compile Include="Attributes\UseLifetimeManagerAttribute.cs" />
     <Compile Include="ChainBuilder.cs" />
     <Compile Include="Configuration\ConfigurationSectionHelper.cs" />
@@ -84,24 +94,10 @@
     <Compile Include="Registration\RegistrationMap.cs" />
     <Compile Include="Registration\RegistrationNotFoundStrategyImpl.cs" />
     <Compile Include="Registration\SimpleObjectStrategyImpl.cs" />
-    <Compile Include="Instantiation\FindResolverStrategy.cs" />
-    <Compile Include="Instantiation\IInstantiator.cs" />
-    <Compile Include="Instantiation\IInstantiatorMap.cs" />
-    <Compile Include="Instantiation\DefaultInstantiator.cs" />
-    <Compile Include="Instantiation\InstantiatorInMapStrategyImpl.cs" />
-    <Compile Include="Instantiation\InstantiatorMap.cs" />
-    <Compile Include="Instantiation\UseDefaultInstantiatorStrategyImpl.cs" />
-    <Compile Include="Instantiation\UseInstantiatorAttributeStrategyImpl.cs" />
     <Compile Include="Strategy.cs" />
     <Compile Include="TupleMap.cs" />
     <Compile Include="TypeMappingRegistration.cs" />
     <Compile Include="TypeMappingResolutions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Configuration\ioc-config.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TypeUtilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

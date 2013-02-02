@@ -1,54 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Configuration;
 
 namespace RockSolidIoc
 {
-  public class ConfigurationSectionHelper : ConfigurationSection
-  {
 
-    [ConfigurationProperty("resolvers")]
-    public virtual ResolverCollection Resolvers
-    {
-      get
-      {
-        return (this["resolvers"] as ResolverCollection);
-      }
-      set
-      {
-        this["resolvers"] = value;
-      }
-    }
+	public class ConfigurationSectionHelper : ConfigurationSection
+	{
 
-    [ConfigurationProperty("lifetime-manager-mappings")]
-    public virtual LifetimeManagerMappingCollection LifetimeManagerMappings
-    {
-      get
-      {
-        return (this["lifetime-manager-mappings"] as LifetimeManagerMappingCollection);
-      }
-      set
-      {
-        this["lifetime-manager-mappings"] = value;
-      }
-    }
+		[ConfigurationProperty("resolvers")]
+		public virtual ResolverCollection Resolvers {
+			get { return (ResolverCollection)this["resolvers"]; }
+			set { this["resolvers"] = value; }
+		}
 
-    [ConfigurationProperty("type-mappings")]
-    public virtual TypeMappingCollection TypeMappings
-    {
-      get
-      {
-        return (this["type-mappings"] as TypeMappingCollection);
-      }
-      set
-      {
-        this["type-mappings"] = value;
-      }
-    }
+		[ConfigurationProperty("lifetime-manager-mappings")]
+		public virtual LifetimeManagerMappingCollection LifetimeManagerMappings {
+			get { return (LifetimeManagerMappingCollection)this["lifetime-manager-mappings"]; }
+			set { this["lifetime-manager-mappings"] = value; }
+		}
 
-  }
+		[ConfigurationProperty("type-mappings")]
+		public virtual TypeMappingCollection TypeMappings {
+			get { return (TypeMappingCollection)this["type-mappings"]; }
+			set { this["type-mappings"] = value; }
+		}
+
+	}
+
 }

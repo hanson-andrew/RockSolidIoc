@@ -3,48 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class TupleMapTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestAddOrUpdate()
     {
       TupleMap<int, string, object> testMap = new TupleMap<int, string, object>();
       object firstObject = new object();
       testMap.AddOrUpdate(1, "test", firstObject);
-      Assert.Equal(firstObject, testMap.GetMappedObject(1, "test"));
+      Assert.AreEqual(firstObject, testMap.GetMappedObject(1, "test"));
       object secondObject = new object();
       testMap.AddOrUpdate(1, "test", secondObject);
       object thirdObject = new object();
       testMap.AddOrUpdate(1, "third", thirdObject);
-      Assert.Equal(secondObject, testMap.GetMappedObject(1, "test"));
-      Assert.Equal(thirdObject, testMap.GetMappedObject(1, "third"));
+      Assert.AreEqual(secondObject, testMap.GetMappedObject(1, "test"));
+      Assert.AreEqual(thirdObject, testMap.GetMappedObject(1, "third"));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestIsInMap()
     {
       TupleMap<int, string, object> testMap = new TupleMap<int, string, object>();
       testMap.AddOrUpdate(1, "test", new object());
-      Assert.True(testMap.IsInMap(1, "test"));
-      Assert.False(testMap.IsInMap(2, "test"));
-      Assert.False(testMap.IsInMap(1, "no-test"));
-      Assert.False(testMap.IsInMap(3, "not-here"));
+      Assert.IsTrue(testMap.IsInMap(1, "test"));
+      Assert.IsFalse(testMap.IsInMap(2, "test"));
+      Assert.IsFalse(testMap.IsInMap(1, "no-test"));
+      Assert.IsFalse(testMap.IsInMap(3, "not-here"));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestGetNonExistingItem()
     {
       TupleMap<int, string, object> testMap = new TupleMap<int, string, object>();
-      Assert.Throws<ArgumentException>(delegate { testMap.GetMappedObject(1, "test"); });
+      try
+      {
+        testMap.GetMappedObject(1, "test");
+        Assert.Fail();
+      }
+      catch (ArgumentException) { }
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDispose()
     {
       Mock<IDisposable> disposableKey1 = new Mock<IDisposable>();

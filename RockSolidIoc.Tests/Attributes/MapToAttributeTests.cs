@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass()]
   public class MapToAttributeTests
   {
-    [Fact()]
+    [TestMethod()]
     public void TestTypeOnlyConstructor()
     {
       Type mappedType = typeof(string);
       MapToAttribute testAttribute = new MapToAttribute(mappedType);
-      Assert.Equal(mappedType, testAttribute.MappedType);
-      Assert.Equal(String.Empty, testAttribute.Identifier);
+      Assert.AreEqual(mappedType, testAttribute.MappedType);
+      Assert.AreEqual(String.Empty, testAttribute.Identifier);
     }
 
-    [Fact()]
+    [TestMethod()]
     public void TestTypeStringConstructor()
     {
       Type mappedType = typeof(string);
       string identifier = "identifier";
       MapToAttribute testAttribute = new MapToAttribute(mappedType, identifier);
-      Assert.Equal(mappedType, testAttribute.MappedType);
-      Assert.Equal(identifier, testAttribute.Identifier);
+      Assert.AreEqual(mappedType, testAttribute.MappedType);
+      Assert.AreEqual(identifier, testAttribute.Identifier);
     }
   }
 

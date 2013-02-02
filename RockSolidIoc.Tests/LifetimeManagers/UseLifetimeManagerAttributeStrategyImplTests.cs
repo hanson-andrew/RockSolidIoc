@@ -3,41 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class UseLifetimeManagerAttributeStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestWithAttributedObject()
     {
       Mock<ILifetimeManagerMap> mockedMap = new Mock<ILifetimeManagerMap>();
       UseLifetimeManagerAttributeStrategyImpl testStrategy = new UseLifetimeManagerAttributeStrategyImpl();
-      Assert.Equal(typeof(ContainerManagedLifetimeManager), testStrategy.FindLifetimeManager(mockedMap.Object, typeof(AttributedWithLifetimeManager), String.Empty));
-      Assert.Equal(typeof(ExternallyControlledLifetimeManager), testStrategy.FindLifetimeManager(mockedMap.Object, typeof(AttributedWithLifetimeManager), "weak"));
+      Assert.AreEqual(typeof(ContainerManagedLifetimeManager), testStrategy.FindLifetimeManager(typeof(AttributedWithLifetimeManager), String.Empty));
+      Assert.AreEqual(typeof(ExternallyControlledLifetimeManager), testStrategy.FindLifetimeManager(typeof(AttributedWithLifetimeManager), "weak"));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesWithNextStep()
     {
       Mock<ILifetimeManagerMap> mockedMap = new Mock<ILifetimeManagerMap>();
       UseLifetimeManagerAttributeStrategyImpl testStrategy = new UseLifetimeManagerAttributeStrategyImpl();
       Mock<FindLifetimeManagerStrategy> mockedNextStep = new Mock<FindLifetimeManagerStrategy>();
       testStrategy.NextStep = mockedNextStep.Object;
-      testStrategy.FindLifetimeManager(mockedMap.Object, typeof(object), "identifier");
-      mockedNextStep.Verify(step => step.FindLifetimeManager(It.IsAny<ILifetimeManagerMap>(), It.IsAny<Type>(), It.IsAny<string>()));
+      testStrategy.FindLifetimeManager(typeof(object), "identifier");
+      mockedNextStep.Verify(step => step.FindLifetimeManager(It.IsAny<Type>(), It.IsAny<string>()));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesNoNextStep()
     {
       Mock<ILifetimeManagerMap> mockedMap = new Mock<ILifetimeManagerMap>();
       UseLifetimeManagerAttributeStrategyImpl testStrategy = new UseLifetimeManagerAttributeStrategyImpl();
-      Assert.Null(testStrategy.FindLifetimeManager(mockedMap.Object, typeof(object), "identifier"));
+      Assert.IsNull(testStrategy.FindLifetimeManager(typeof(object), "identifier"));
     }
 
   }

@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
 
+  [TestClass]
   public class RegistrationNotFoundStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestThrowsException()
     {
       RegistrationNotFoundStrategyImpl testStrategy = new RegistrationNotFoundStrategyImpl();
-      Assert.Throws<IocException>(delegate { testStrategy.PickRegistration(new Mock<IRegistrationMap>().Object, typeof(object), "identifier"); });
+      try
+      {
+        testStrategy.PickRegistration(typeof(object), "identified");
+        Assert.Fail();
+      }
+      catch (IocException) { }
     }
   }
 

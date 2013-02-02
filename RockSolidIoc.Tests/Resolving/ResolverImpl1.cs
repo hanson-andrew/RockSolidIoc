@@ -6,7 +6,7 @@ using System.Text;
 namespace RockSolidIoc.Tests
 {
 
-  public class ResolverImpl1 : IInstantiator
+  public class ResolverImpl1 : IResolver
   {
     public object ResolveDependency(Type type, IIocContainer context)
     {

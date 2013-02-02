@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass()]
   public class IocDependencyAttributeTests
   {
-    [Fact()]
+    [TestMethod()]
     public void TestIdentifier()
     {
       string identifier1 = "identifier1";
       IocDependencyAttribute testAttribute = new IocDependencyAttribute(identifier1);
-      Assert.Equal(identifier1, testAttribute.Identifier);
+      Assert.AreEqual(identifier1, testAttribute.Identifier);
       string identifier2 = "identifier2";
       testAttribute.Identifier = identifier2;
-      Assert.Equal(identifier2, testAttribute.Identifier);
+      Assert.AreEqual(identifier2, testAttribute.Identifier);
     }
 
-    [Fact()]
+    [TestMethod()]
     public void TestEmptyIdentifier()
     {
       IocDependencyAttribute testAttribute = new IocDependencyAttribute();
-      Assert.Equal(String.Empty, testAttribute.Identifier);
+      Assert.AreEqual(String.Empty, testAttribute.Identifier);
     }
   }
 

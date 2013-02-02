@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class TypeMappingConfigurationElementTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestTypeName()
     {
       string s = "typeName";
       TypeMappingConfigurationElement element = new TypeMappingConfigurationElement();
       element.TypeName = s;
-      Assert.Equal(s, element.TypeName);
+      Assert.AreEqual(s, element.TypeName);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestMapTo()
     {
       string s = "mapTo";
       TypeMappingConfigurationElement element = new TypeMappingConfigurationElement();
       element.MapTo = s;
-      Assert.Equal(s, element.MapTo);
+      Assert.AreEqual(s, element.MapTo);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestName()
     {
       string s = "name";
       TypeMappingConfigurationElement element = new TypeMappingConfigurationElement();
       element.Name = s;
-      Assert.Equal(s, element.Name);
+      Assert.AreEqual(s, element.Name);
     }
 
   }

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class SimpleObjectStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestIsSimple()
     {
       Type mappedType = typeof(object);
@@ -21,10 +21,10 @@ namespace RockSolidIoc.Tests
       Mock<IRegistrationMap> mockedMap = new Mock<IRegistrationMap>();
 
       SimpleObjectStrategyImpl testStrategy = new SimpleObjectStrategyImpl();
-      Assert.Equal(mappedToType, testStrategy.PickRegistration(mockedMap.Object, mappedType, mappedIdentifier));
+      Assert.AreEqual(mappedToType, testStrategy.PickRegistration(mappedType, mappedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotSimpleWithNextStep()
     {
       Mock<IRegistrationMap> mockedMap = new Mock<IRegistrationMap>();
@@ -34,16 +34,16 @@ namespace RockSolidIoc.Tests
       testStrategy.NextStep = mockedNextStep.Object;
       Type requestedType = typeof(IDisposable);
       string requestedIdentifer = "identifier";
-      testStrategy.PickRegistration(mockedMap.Object, requestedType, requestedIdentifer);
-      mockedNextStep.Verify(step => step.PickRegistration(mockedMap.Object, requestedType, requestedIdentifer));
+      testStrategy.PickRegistration(requestedType, requestedIdentifer);
+      mockedNextStep.Verify(step => step.PickRegistration(requestedType, requestedIdentifer));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotSimpleWithNoNextStep()
     {
       Mock<IRegistrationMap> mockedMap = new Mock<IRegistrationMap>();
       SimpleObjectStrategyImpl testStrategy = new SimpleObjectStrategyImpl();
-      Assert.Null(testStrategy.PickRegistration(mockedMap.Object, typeof(IDisposable), "identifier"));
+      Assert.IsNull(testStrategy.PickRegistration(typeof(IDisposable), "identifier"));
     }
 
   }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class RegistrationInMapStrategyImplTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestRegistrationInMap()
     {
       Type mappedType = typeof(object);
@@ -21,32 +21,32 @@ namespace RockSolidIoc.Tests
       mockedMap.Setup(map => map.IsInMap(mappedType, mappedIdentifier)).Returns(true);
       mockedMap.Setup(map => map.GetMappedObject(mappedType, mappedIdentifier)).Returns(mappedToType);
 
-      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl();
-      Assert.Equal(mappedToType, testStrategy.PickRegistration(mockedMap.Object, mappedType, mappedIdentifier));
+      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl(() => mockedMap.Object);
+      Assert.AreEqual(mappedToType, testStrategy.PickRegistration(mappedType, mappedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotInMapWithNextStep()
     {
       Mock<IRegistrationMap> mockedMap = new Mock<IRegistrationMap>();
       mockedMap.Setup(map => map.IsInMap(It.IsAny<Type>(), It.IsAny<string>())).Returns(false);
       Mock<PickRegistrationStrategy> mockedNextStep = new Mock<PickRegistrationStrategy>();
 
-      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl();
+      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl(() => mockedMap.Object);
       testStrategy.NextStep = mockedNextStep.Object;
       Type requestedType = typeof(object);
       string requestedIdentifer = "identifier";
-      testStrategy.PickRegistration(mockedMap.Object, typeof(object), requestedIdentifer);
-      mockedNextStep.Verify(step => step.PickRegistration(mockedMap.Object, requestedType, requestedIdentifer));
+      testStrategy.PickRegistration(typeof(object), requestedIdentifer);
+      mockedNextStep.Verify(step => step.PickRegistration(requestedType, requestedIdentifer));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNotInMapWithNoNextStep()
     {
       Mock<IRegistrationMap> mockedMap = new Mock<IRegistrationMap>();
       mockedMap.Setup(map => map.IsInMap(It.IsAny<Type>(), It.IsAny<string>())).Returns(false);
-      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl();
-      Assert.Null(testStrategy.PickRegistration(mockedMap.Object, typeof(object), "identifier"));
+      RegistrationInMapStrategyImpl testStrategy = new RegistrationInMapStrategyImpl(() => mockedMap.Object);
+      Assert.IsNull(testStrategy.PickRegistration(typeof(object), "identifier"));
     }
   }
 

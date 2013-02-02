@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ExternallyControlledLifetimeManagerTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestAddRetrieve()
     {
       ExternallyControlledLifetimeManager manager = new ExternallyControlledLifetimeManager();
       Mock<IDisposable> disposable = new Mock<IDisposable>();
       manager.AddInstance(disposable.Object);
-      Assert.Equal(disposable.Object, manager.GetInstance());
+      Assert.AreEqual(disposable.Object, manager.GetInstance());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestRemoveInstance()
     {
       ExternallyControlledLifetimeManager manager = new ExternallyControlledLifetimeManager();
@@ -30,10 +29,10 @@ namespace RockSolidIoc.Tests
       manager.RemoveInstance();
       disposable.Verify(p => p.Dispose(), Times.Never());
       disposable.Object.Dispose();
-      Assert.Equal(disposable.Object, manager.GetInstance());
+      Assert.AreEqual(disposable.Object, manager.GetInstance());
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestDispose()
     {
       ExternallyControlledLifetimeManager manager = new ExternallyControlledLifetimeManager();

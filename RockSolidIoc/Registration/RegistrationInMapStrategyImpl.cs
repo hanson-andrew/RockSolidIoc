@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace RockSolidIoc
 {
-  public class RegistrationInMapStrategyImpl : PickRegistrationStrategy
-  {
 
-    public override object PickRegistration(IRegistrationMap registrationMap, Type type, string identifier)
-    {
-      if (registrationMap.IsInMap(type, identifier))
-      {
-        return registrationMap.GetMappedObject(type, identifier);
-      }
-      else if (this.NextStep != null)
-      {
-        return this.NextStep.PickRegistration(registrationMap, type, identifier);
-      }
-      return null;
-    }
-  }
+	public class RegistrationInMapStrategyImpl : PickRegistrationStrategy
+	{
+
+
+		private Func<IRegistrationMap> _getRegistrationMap;
+		public RegistrationInMapStrategyImpl(Func<IRegistrationMap> getRegistrationMap)
+		{
+			this._getRegistrationMap = getRegistrationMap;
+		}
+
+		public override object PickRegistration(System.Type type, string identifier)
+		{
+			IRegistrationMap registrationMap = this._getRegistrationMap.Invoke();
+			if (registrationMap.IsInMap(type, identifier)) {
+				return registrationMap.GetMappedObject(type, identifier);
+			} else if ((base.NextStep != null)) {
+				return this.NextStep.PickRegistration(type, identifier);
+			}
+			return null;
+		}
+	}
+
 }

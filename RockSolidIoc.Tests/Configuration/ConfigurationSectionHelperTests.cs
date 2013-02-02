@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ConfigurationSectionHelperTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestResolvers()
     {
       ResolverCollection resolvers = new ResolverCollection();
       ConfigurationSectionHelper testHelper = new ConfigurationSectionHelper();
       testHelper.Resolvers = resolvers;
-      Assert.Equal(resolvers, testHelper.Resolvers);
+      Assert.AreEqual(resolvers, testHelper.Resolvers);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestLifetimeManagerMappings()
     {
       LifetimeManagerMappingCollection mappings = new LifetimeManagerMappingCollection();
       ConfigurationSectionHelper testHelper = new ConfigurationSectionHelper();
       testHelper.LifetimeManagerMappings = mappings;
-      Assert.Equal(mappings, testHelper.LifetimeManagerMappings);
+      Assert.AreEqual(mappings, testHelper.LifetimeManagerMappings);
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestTypeMappings()
     {
       TypeMappingCollection mappings = new TypeMappingCollection();
       ConfigurationSectionHelper testHelper = new ConfigurationSectionHelper();
       testHelper.TypeMappings = mappings;
-      Assert.Equal(mappings, testHelper.TypeMappings);
+      Assert.AreEqual(mappings, testHelper.TypeMappings);
     }
   }
 

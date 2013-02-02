@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Diagnostics;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class ConfiguratorTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestParsingResolvers()
     {
       ConfigurationSectionHelper helper = new ConfigurationSectionHelper();
@@ -29,7 +29,7 @@ namespace RockSolidIoc.Tests
       MockFriendlyResolver.ResetMock();
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestParsingLifetimeManager()
     {
       ConfigurationSectionHelper helper = new ConfigurationSectionHelper();
@@ -46,7 +46,7 @@ namespace RockSolidIoc.Tests
       MockFriendlyLifetimeManager.ResetMock();
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestParsingRegistrations()
     {
       ConfigurationSectionHelper helper = new ConfigurationSectionHelper();
@@ -59,7 +59,7 @@ namespace RockSolidIoc.Tests
       Configurator testConfigurator = new Configurator();
       IIocContainer result = testConfigurator.Configure(helper);
       object s = result.Resolve<object>();
-      Assert.IsType<EmptyObject>(s);
+      Assert.IsInstanceOfType(s, typeof(EmptyObject));
     }
   }
 

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System;
 
 namespace RockSolidIoc
 {
-  public class LifetimeManagerMap : TupleMap<Type, string, object>, ILifetimeManagerMap { }
-}
 
+	public class LifetimeManagerMap : TupleMap<Type, string, object>, ILifetimeManagerMap
+	{
+
+	}
+
+}

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class UseDefaultLifetimeManagerStrategyImplTests
   {
 
-    [Fact()]
+    [TestMethod]
     public void TestFindLifetimeManager()
     {
       Mock<ILifetimeManagerMap> mockedMap = new Mock<ILifetimeManagerMap>();
       UseDefaultLifetimeManagerStrategyImpl testStrategy = new UseDefaultLifetimeManagerStrategyImpl();
-      Assert.IsType<TransientLifetimeManager>(testStrategy.FindLifetimeManager(mockedMap.Object, typeof(object), "identifier"));
+      Assert.IsInstanceOfType(testStrategy.FindLifetimeManager(typeof(object), "identifier"), typeof(TransientLifetimeManager));
     }
 
   }

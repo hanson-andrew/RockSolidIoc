@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace RockSolidIoc.Tests
 {
-
+  [TestClass]
   public class MapToAttributeStrategyImplTests
   {
-    [Fact()]
+    [TestMethod]
     public void TestWithAttributedObject()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
       MapToAttributeStrategyImpl testStrategy = new MapToAttributeStrategyImpl();
       Type requestedType = typeof(ISimpleInterface);
-      Assert.Equal(typeof(SimpleInterfaceImpl1), testStrategy.PickRegistration(mockMap.Object, requestedType, String.Empty));
-      Assert.Equal(typeof(SimpleInterfaceImpl2), testStrategy.PickRegistration(mockMap.Object, requestedType, "2"));
+      Assert.AreEqual(typeof(SimpleInterfaceImpl1), testStrategy.PickRegistration(requestedType, String.Empty));
+      Assert.AreEqual(typeof(SimpleInterfaceImpl2), testStrategy.PickRegistration(requestedType, "2"));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesWithNextStep()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
@@ -30,16 +30,16 @@ namespace RockSolidIoc.Tests
       testStrategy.NextStep = mockNextStep.Object;
       Type requestedType = typeof(object);
       String requestedIdentifier = "identifier";
-      testStrategy.PickRegistration(mockMap.Object, requestedType, requestedIdentifier);
-      mockNextStep.Verify(step => step.PickRegistration(mockMap.Object, requestedType, requestedIdentifier));
+      testStrategy.PickRegistration(requestedType, requestedIdentifier);
+      mockNextStep.Verify(step => step.PickRegistration(requestedType, requestedIdentifier));
     }
 
-    [Fact()]
+    [TestMethod]
     public void TestNoAttributesNoNextStep()
     {
       Mock<IRegistrationMap> mockMap = new Mock<IRegistrationMap>();
       MapToAttributeStrategyImpl testStrategy = new MapToAttributeStrategyImpl();
-      Assert.Null(testStrategy.PickRegistration(mockMap.Object, typeof(object), "identifier"));
+      Assert.IsNull(testStrategy.PickRegistration(typeof(object), "identifier"));
     }
 
   }
